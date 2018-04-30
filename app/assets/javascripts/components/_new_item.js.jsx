@@ -1,6 +1,6 @@
-var NewItem = createReactClass({
+class NewItem extends React.Component {
 	handleClick() {
-	    var name    = this.refs.name.value;
+	    var name  = this.refs.name.value;
 	    var description = this.refs.description.value;
 		$.ajax({
 		    url: "/api/v1/items",
@@ -10,7 +10,7 @@ var NewItem = createReactClass({
 	            this.props.handleSubmit(item);
 	        }
 	    });
-	},
+	}
 
   	render() {
 	    return (
@@ -21,4 +21,4 @@ var NewItem = createReactClass({
 	        </div>
 	    )
 	}
-});
+}

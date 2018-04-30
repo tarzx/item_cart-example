@@ -1,18 +1,26 @@
-var Body = createReactClass({
-  getInitialState() {
-    return { items: [] }
-  },
+class Body extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      items: []
+    };
+  }
 
   componentDidMount() {
-    $.getJSON('/api/v1/items.json', (response) => { 
-    	this.setState({ items: response }) 
+  	$.ajax({
+	    url: "/api/v1/items.json",
+	    dataType: 'json',
+	    success: (item) => {
+            this.props.handleSubmit(item);
+        }
     });
-  },
+  }
 
   handleSubmit(item) {
     var newState = this.state.items.concat(item);
     this.setState({ items: newState })
-  },
+  }
 
   render() {
     return (
@@ -22,4 +30,4 @@ var Body = createReactClass({
       </div>
     );
   }
-});
+}

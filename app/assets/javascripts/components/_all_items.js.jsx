@@ -1,4 +1,4 @@
-var AllItems = createReactClass({
+class AllItems extends React.Component {
   render() {
     var items = this.props.items.map((item) => {
         return (
@@ -6,7 +6,7 @@ var AllItems = createReactClass({
                 <h3>{item.name}</h3>
                 <p>{item.description}</p>
             </div>
-        )
+        );
     });
 
     return(
@@ -15,4 +15,4 @@ var AllItems = createReactClass({
         </div>
     );
   }
-});
+}
