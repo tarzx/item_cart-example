@@ -8,13 +8,15 @@ class Body extends React.Component {
   }
 
   componentDidMount() {
-  	$.ajax({
-	    url: "/api/v1/items.json",
-	    dataType: 'json',
-	    success: (item) => {
-            this.props.handleSubmit(item);
-        }
-    });
+    axios.get('/api/v1/items.json')
+		.then((response) => {
+		  	if (response != null) {
+			    this.setState({ items: response.data })
+			}
+		})
+		.catch(function (error) {
+		    console.log(error);
+		});
   }
 
   handleSubmit(item) {

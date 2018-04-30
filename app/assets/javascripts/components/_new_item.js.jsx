@@ -1,24 +1,33 @@
 class NewItem extends React.Component {
-	handleClick() {
-	    var name  = this.refs.name.value;
-	    var description = this.refs.description.value;
-		$.ajax({
-		    url: "/api/v1/items",
-		    type: "POST",
-		    data: { item: { name: name, description: description } },
-		    success: (item) => {
-	            this.props.handleSubmit(item);
-	        }
-	    });
-	}
+  handleSubmit(e) {
+      var name  = e.target.elements.name.value;
+      var description = e.target.elements.description.value;
+      axios.post('/api/v1/items', {
+        name: name,
+        description: description
+      })
+      .then((response) => {
+        if (response != null) {
+          this.props.handleSubmit(item.data);
+          e.target.elements.name.value = '';
+          e.target.elements.description.value = '';
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      e.preventDefault();
+  }
 
-  	render() {
-	    return (
-	        <div>
-	            <input ref='name' placeholder='Enter the name of the item' />
-	            <input ref='description' placeholder='Enter a description' />
-	            <button onClick={this.handleClick}>Submit</button>
-	        </div>
-	    )
-	}
+    render() {
+      return (
+          <div>
+              <form onSubmit={this.handleSubmit}>
+                <input name='name' placeholder='Enter the name of the item' />
+                <input name='description' placeholder='Enter a description' />
+                <input type="submit" value="Submit" />
+              </form>
+          </div>
+      )
+  }
 }
