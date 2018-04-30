@@ -10,12 +10,12 @@ class Body extends React.Component {
   componentDidMount() {
     axios.get('/api/v1/items.json')
 		.then((response) => {
-		  	if (response != null) {
-			    this.setState({ items: response.data })
+	  	if (response != null) {
+		    this.setState({ items: response.data })
 			}
 		})
 		.catch(function (error) {
-		    console.log(error);
+	    console.log(error);
 		});
   }
 
@@ -24,11 +24,21 @@ class Body extends React.Component {
     this.setState({ items: newState })
   }
 
+  handleDelete(id) {
+  	axios.delete(`/api/v1/items/${id}`)
+		.then((response) => {
+      console.log('successfully removed item')
+		})
+		.catch(function (error) {
+		  console.log(error);
+		});
+  }
+
   render() {
     return (
       <div>
       	<NewItem handleSubmit={this.handleSubmit} />
-        <AllItems items={this.state.items} />
+        <AllItems items={this.state.items} handleDelete={this.handleDelete} />
       </div>
     );
   }
