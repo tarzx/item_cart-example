@@ -1,4 +1,8 @@
 class AllItems extends React.Component {
+  handleUpdate(item) {
+    this.props.handleUpdate(item);
+  }
+
   handleDelete(id) {
     this.props.handleDelete(id);
   }
@@ -9,9 +13,9 @@ class AllItems extends React.Component {
             {this.props.items.map((item) => {
               return (
                   <div key={item.id}>
-                      <h3>{item.id}: {item.name}</h3>
-                      <p>{item.description}</p>
-                      <button onClick = {() => {this.handleDelete(item.id)}}>Delete</button>
+                    <Item item={item} 
+                      handleDelete={this.handleDelete.bind(this, item.id)} 
+                      handleUpdate={this.handleUpdate.bind(this)} />
                   </div>
               );
             })}
