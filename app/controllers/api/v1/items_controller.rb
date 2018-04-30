@@ -2,6 +2,11 @@ class Api::V1::ItemsController < Api::V1::BaseController
   def index
     respond_with Item.all
   end
+  
+  def show
+      item = Item.find(params["id"])
+      respond_with item, json: item
+  end
 
   def create
     respond_with :api, :v1, Item.create(item_params)
